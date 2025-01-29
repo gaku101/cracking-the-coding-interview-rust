@@ -1,10 +1,11 @@
-mod q_1_1;
+mod q_1_2;
 
 fn main() {
-    let test_str = "abcdef";
-    println!(
-        "Problem 1.1: Is \"{}\" unique? {}",
-        test_str,
-        q_1_1::is_unique(test_str)
-    );
+    let s1 = "abc";
+    let s2 = "bca";
+    println!("Are '{}' and '{}' permutations? {}", s1, s2, q_1_2::check_permutation2(s1, s2)); // true
+
+    let s1 = "abc";
+    let s2 = "abcd";
+    println!("Are '{}' and '{}' permutations? {}", s1, s2, q_1_2::check_permutation2(s1, s2)); // false
 }
