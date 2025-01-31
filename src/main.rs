@@ -1,11 +1,10 @@
-mod q_1_2;
+mod q_1_4;
 
 fn main() {
-    let s1 = "abc";
-    let s2 = "bca";
-    println!("Are '{}' and '{}' permutations? {}", s1, s2, q_1_2::check_permutation2(s1, s2)); // true
-
-    let s1 = "abc";
-    let s2 = "abcd";
-    println!("Are '{}' and '{}' permutations? {}", s1, s2, q_1_2::check_permutation2(s1, s2)); // false
+    let test_str = "tact coa";
+    println!(
+        "Is '{}' a palindrome permutation? {}",
+        test_str,
+        q_1_4::is_palindrome_permutation(test_str)
+    );
 }
