@@ -5,6 +5,6 @@ fn main() {
     println!(
         "Is '{}' a palindrome permutation? {}",
         test_str,
-        q_1_4::is_palindrome_permutation(test_str)
+        q_1_4::is_palindrome_permutation_bitwise(test_str)
     );
 }
