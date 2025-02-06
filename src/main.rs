@@ -1,22 +1,12 @@
-mod q_1_8;
+mod q_1_9;
 
 fn main() {
-    let mut matrix = vec![
-        vec![1, 2, 3, 4],
-        vec![5, 0, 7, 8],
-        vec![9, 10, 11, 12],
-        vec![13, 14, 15, 0],
-    ];
+    let s1 = "waterbottle";
+    let s2 = "erbottlewat";
 
-    println!("更新前:");
-    for row in &matrix {
-        println!("{:?}", row);
-    }
-
-    q_1_8::zero_matrix_constant(&mut matrix);
-
-    println!("\n更新後:");
-    for row in &matrix {
-        println!("{:?}", row);
+    if q_1_9::is_rotation(s1, s2) {
+        println!("'{}' は '{}' の回転です。", s2, s1);
+    } else {
+        println!("'{}' は '{}' の回転ではありません。", s2, s1);
     }
 }
