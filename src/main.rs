@@ -1,12 +1,22 @@
-mod q_1_9;
+mod q_2_1;
+
+use q_2_1::{ListNode, print_list, remove_dups};
 
 fn main() {
-    let s1 = "waterbottle";
-    let s2 = "erbottlewat";
+    let mut head: Option<Box<ListNode>> = None;
 
-    if q_1_9::is_rotation(s1, s2) {
-        println!("'{}' は '{}' の回転です。", s2, s1);
-    } else {
-        println!("'{}' は '{}' の回転ではありません。", s2, s1);
-    }
+    // リストに値を追加する（例として 3 -> 4 -> 3 -> 2 -> 4 -> None）
+    ListNode::push(&mut head, 4);
+    ListNode::push(&mut head, 2);
+    ListNode::push(&mut head, 3);
+    ListNode::push(&mut head, 4);
+    ListNode::push(&mut head, 3);
+
+    println!("重複削除前:");
+    print_list(&head);
+
+    remove_dups(&mut head);
+
+    println!("重複削除後:");
+    print_list(&head);
 }
