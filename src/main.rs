@@ -1,22 +1,30 @@
-mod q_2_1;
+mod q_2_2;
 
-use q_2_1::{ListNode, print_list, remove_dups};
+use q_2_2::{kth_to_last, ListNode};
 
 fn main() {
-    let mut head: Option<Box<ListNode>> = None;
+    // リストの作成例: 1 -> 2 -> 3 -> 4 -> 5
+    let node5 = Box::new(ListNode::new(5));
+    let mut node4 = ListNode::new(4);
+    node4.next = Some(node5);
+    let node4 = Box::new(node4);
 
-    // リストに値を追加する（例として 3 -> 4 -> 3 -> 2 -> 4 -> None）
-    ListNode::push(&mut head, 4);
-    ListNode::push(&mut head, 2);
-    ListNode::push(&mut head, 3);
-    ListNode::push(&mut head, 4);
-    ListNode::push(&mut head, 3);
+    let mut node3 = ListNode::new(3);
+    node3.next = Some(node4);
+    let node3 = Box::new(node3);
 
-    println!("重複削除前:");
-    print_list(&head);
+    let mut node2 = ListNode::new(2);
+    node2.next = Some(node3);
+    let node2 = Box::new(node2);
 
-    remove_dups(&mut head);
+    let mut head_node = ListNode::new(1);
+    head_node.next = Some(node2);
+    let head = Some(Box::new(head_node));
 
-    println!("重複削除後:");
-    print_list(&head);
+    let k = 2;
+    if let Some(val) = kth_to_last(&head, k) {
+        println!("最後から {} 番目の要素は {}", k, val);
+    } else {
+        println!("リストの要素数が不足しています");
+    }
 }
