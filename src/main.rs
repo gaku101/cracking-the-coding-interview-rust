@@ -1,38 +1,35 @@
-mod q_2_3;
+mod q_2_4;
 
-use q_2_3::{delete_middle_node, ListNode};
+use q_2_4::{partition_list, ListNode};
 
 fn main() {
-    // リストの作成例: 1 -> 2 -> 3 -> 4 -> 5
-    let mut head = Box::new(ListNode::new(1));
-    head.next = Some(Box::new(ListNode::new(2)));
-    if let Some(ref mut node2) = head.next {
-        node2.next = Some(Box::new(ListNode::new(3)));
-        if let Some(ref mut node3) = node2.next {
-            node3.next = Some(Box::new(ListNode::new(4)));
-            if let Some(ref mut node4) = node3.next {
-                node4.next = Some(Box::new(ListNode::new(5)));
-            }
-        }
-    }
+    // テスト用のリストを作成（例: 3 -> 5 -> 8 -> 5 -> 10 -> 2 -> 1）
+    let mut n1 = Box::new(ListNode::new(3));
+    let mut n2 = Box::new(ListNode::new(5));
+    let mut n3 = Box::new(ListNode::new(8));
+    let mut n4 = Box::new(ListNode::new(5));
+    let mut n5 = Box::new(ListNode::new(10));
+    let mut n6 = Box::new(ListNode::new(2));
+    let n7 = Box::new(ListNode::new(1));
 
-    // ここでは、値が 3 のノードを削除対象とする
-    // head -> 1 -> 2 -> 3 -> 4 -> 5 となっているので、
-    // head.next (値 2) の次、つまり head.next.next が値 3 のノードに該当
-    if let Some(ref mut node2) = head.next {
-        if let Some(ref mut node3) = node2.next {
-            // node3 を削除（正確には node3 に次ノードの内容をコピーしている）
-            let result = delete_middle_node(node3);
-            println!("削除結果: {}", result); // true が出力されれば削除成功
-        }
-    }
+    // リストを連結
+    n6.next = Some(n7);
+    n5.next = Some(n6);
+    n4.next = Some(n5);
+    n3.next = Some(n4);
+    n2.next = Some(n3);
+    n1.next = Some(n2);
+    let head = Some(n1);
 
-    // リストの状態を表示して結果を確認する
-    let mut curr: Option<&ListNode<i32>> = Some(&*head); // head は Box<ListNode<i32>> 型
-    while let Some(node) = curr {
+    // 分割の基準値（例：5）
+    let x = 5;
+    let partitioned = partition_list(head, x);
+
+    // 結果のリストを走査して出力する
+    let mut current: Option<&ListNode<i32>> = partitioned.as_deref();
+    while let Some(node) = current {
         print!("{} ", node.value);
-        curr = node.next.as_ref().map(|n| n.as_ref());
+        current = node.next.as_deref();
     }
     println!();
-    
 }
