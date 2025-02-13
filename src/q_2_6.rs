@@ -43,3 +43,7 @@ pub fn is_palindrome<T: PartialEq + Clone>(head: &Option<Box<ListNode<T>>>) -> b
     }
     true
 }
+/*
+時間計算量: リストを2回走査するので O(n)
+空間計算量: 前半部分の値をスタックに保持するため O(n)
+*/

@@ -1,36 +1,45 @@
-mod q_2_6;
+use std::rc::Rc;
+use std::cell::RefCell;
+mod q_2_7;
 
-use q_2_6::{is_palindrome, ListNode};
+use q_2_7::{find_intersection, ListNode};
 
 fn main() {
-// 回文リストの作成例：1 -> 2 -> 3 -> 2 -> 1
-let mut n1 = Box::new(ListNode::new(1));
-let mut n2 = Box::new(ListNode::new(2));
-let mut n3 = Box::new(ListNode::new(3));
-let mut n4 = Box::new(ListNode::new(2));
-let n5 = Box::new(ListNode::new(1));
+    // 交差するリストを作成する例
 
-n4.next = Some(n5);
-n3.next = Some(n4);
-n2.next = Some(n3);
-n1.next = Some(n2);
-let palindrome_list = Some(n1);
+    // 共通部分（交差部分）の作成
+    let common = Rc::new(RefCell::new(ListNode {
+        value: 8,
+        next: Some(Rc::new(RefCell::new(ListNode {
+            value: 10,
+            next: None,
+        }))),
+    }));
 
-// 回文でないリストの作成例：1 -> 2 -> 3 -> 4
-let mut a1 = Box::new(ListNode::new(1));
-let mut a2 = Box::new(ListNode::new(2));
-let mut a3 = Box::new(ListNode::new(3));
-let a4 = Box::new(ListNode::new(4));
+    // リスト1: 3 -> 1 -> 5 -> 8 -> 10
+    let node5 = Rc::new(RefCell::new(ListNode {
+        value: 5,
+        next: Some(common.clone()),
+    }));
+    let node1 = Rc::new(RefCell::new(ListNode {
+        value: 1,
+        next: Some(node5),
+    }));
+    let head1 = Some(Rc::new(RefCell::new(ListNode {
+        value: 3,
+        next: Some(node1),
+    })));
 
-a3.next = Some(a4);
-a2.next = Some(a3);
-a1.next = Some(a2);
-let non_palindrome_list = Some(a1);
+    // リスト2: 4 -> 8 -> 10 （8,10 はリスト1の共通部分と同じ）
+    let head2 = Some(Rc::new(RefCell::new(ListNode {
+        value: 4,
+        next: Some(common.clone()),
+    })));
 
-println!("palindrome_list is palindrome? {}", is_palindrome(&palindrome_list));
-println!("non_palindrome_list is palindrome? {}", is_palindrome(&non_palindrome_list));
+    // 交差ノードの探索
+    if let Some(intersection) = find_intersection(&head1, &head2) {
+        println!("交差ノードの値: {}", intersection.borrow().value);
+    } else {
+        println!("交差はありません");
+    }
 }
-/*
-時間計算量: リストを2回走査するので O(n)
-空間計算量: 前半部分の値をスタックに保持するため O(n)
-*/
