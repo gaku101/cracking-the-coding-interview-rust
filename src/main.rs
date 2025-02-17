@@ -1,37 +1,46 @@
-use std::rc::Rc;
-use std::cell::RefCell;
-mod q_2_8;
+mod q_3_1;
 
-use q_2_8::{find_loop_start, ListNode};
+use q_3_1::ThreeStacks;
 
 fn main() {
-    // ループのあるリンクリストの例を作成
-    // リスト: A -> B -> C -> D -> E -> C (ループ開始は C)
-    
-    // まず、ループに入るノード C, D, E を作成
-    let node_c = Rc::new(RefCell::new(ListNode { value: 3, next: None }));
-    let node_d = Rc::new(RefCell::new(ListNode { value: 4, next: None }));
-    let node_e = Rc::new(RefCell::new(ListNode { value: 5, next: None }));
-    
-    // リンクを設定
-    // C -> D
-    node_c.borrow_mut().next = Some(node_d.clone());
-    // D -> E
-    node_d.borrow_mut().next = Some(node_e.clone());
-    // E -> C でループを形成
-    node_e.borrow_mut().next = Some(node_c.clone());
-    
-    // ループに入る前のノード A, B を作成
-    let node_b = Rc::new(RefCell::new(ListNode { value: 2, next: Some(node_c.clone()) }));
-    let node_a = Rc::new(RefCell::new(ListNode { value: 1, next: Some(node_b.clone()) }));
-    
-    let head = Some(node_a);
-    
-    // ループの開始ノードを検出
-    if let Some(loop_start) = find_loop_start(&head) {
-        println!("ループの開始ノードの値: {}", loop_start.borrow().value);
-    } else {
-        println!("ループは存在しません");
-    }
+    // 各スタックの容量を5に設定
+    let mut stacks = ThreeStacks::new(5);
 
+    // --- push 操作のテスト ---
+    println!("各スタックに値を push します");
+    stacks.push(0, 10).unwrap();
+    stacks.push(0, 20).unwrap();
+    stacks.push(0, 30).unwrap();
+
+    stacks.push(1, 40).unwrap();
+    stacks.push(1, 50).unwrap();
+
+    stacks.push(2, 60).unwrap();
+    stacks.push(2, 70).unwrap();
+    stacks.push(2, 80).unwrap();
+
+    // --- peek 操作のテスト ---
+    println!("スタック 0 のトップ: {}", stacks.peek(0).unwrap());
+    println!("スタック 1 のトップ: {}", stacks.peek(1).unwrap());
+    println!("スタック 2 のトップ: {}", stacks.peek(2).unwrap());
+
+    // --- pop 操作のテスト ---
+    println!("スタック 0 から pop: {}", stacks.pop(0).unwrap());
+    println!("スタック 0 の新しいトップ: {}", stacks.peek(0).unwrap());
+
+    println!("スタック 1 から pop: {}", stacks.pop(1).unwrap());
+    println!("スタック 1 の新しいトップ: {}", stacks.peek(1).unwrap());
+
+    println!("スタック 2 から pop: {}", stacks.pop(2).unwrap());
+    println!("スタック 2 のトップ: {}", stacks.peek(2).unwrap());
+
+    // --- エラー処理のテスト ---
+    // スタック 1 の残りをすべて pop して空にする
+    println!("スタック 1 から pop: {}", stacks.pop(1).unwrap());
+    println!("スタック 1 から pop: {}", stacks.pop(1).unwrap());
+    // 既に空のスタック 1 に対して pop を試みる
+    match stacks.pop(1) {
+        Ok(value) => println!("スタック 1 から pop: {}", value),
+        Err(e) => println!("スタック 1 の pop エラー: {}", e),
+    }
 }
