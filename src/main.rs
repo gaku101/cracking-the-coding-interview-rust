@@ -1,18 +1,18 @@
-mod q_3_4;
+mod q_3_5;
 
-use q_3_4::QueueViaStacks;
+use q_3_5::SortableStack;
 
 fn main() {
-    let mut queue = QueueViaStacks::new();
+    let mut stack = SortableStack::new();
 
-    queue.enqueue(1);
-    queue.enqueue(2);
-    queue.enqueue(3);
+    stack.push(3);
+    stack.push(1);
+    stack.push(4);
+    stack.push(2);
 
-    println!("{:?}", queue.dequeue()); // Some(1)
-    println!("{:?}", queue.peek()); // Some(2)
-    println!("{:?}", queue.dequeue()); // Some(2)
-    println!("{:?}", queue.is_empty()); // false
-    println!("{:?}", queue.dequeue()); // Some(3)
-    println!("{:?}", queue.is_empty()); // true
+    println!("Before sorting: {:?}", stack.input_stack);
+
+    stack.sort();
+
+    println!("After sorting: {:?}", stack.input_stack);
 }

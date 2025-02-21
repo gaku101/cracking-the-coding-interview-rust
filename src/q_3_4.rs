@@ -1,5 +1,3 @@
-use std::vec::Vec;
-
 pub struct QueueViaStacks<T> {
     stack_newest: Vec<T>,
     stack_oldest: Vec<T>,
