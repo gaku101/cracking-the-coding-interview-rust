@@ -1,28 +1,17 @@
-mod q_3_6;
+mod q_4_1;
 
-use q_3_6::{AnimalShelter, AnimalType};
+use q_4_1::Graph;
 
 fn main() {
-    let mut shelter = AnimalShelter::new();
+    let mut graph = Graph::new();
+    // グラフの辺を定義 (例: 1 -> 2, 1 -> 3, 2 -> 4, 3 -> 5, 4 -> 6, 5 -> 6)
+    graph.add_edge(1, 2);
+    graph.add_edge(1, 3);
+    graph.add_edge(2, 4);
+    graph.add_edge(3, 5);
+    graph.add_edge(4, 6);
+    graph.add_edge(5, 6);
 
-    // 動物を登録（到着順は順番にorderが増加）
-    shelter.enqueue(AnimalType::Dog, "Buddy".to_string());
-    shelter.enqueue(AnimalType::Cat, "Kitty".to_string());
-    shelter.enqueue(AnimalType::Dog, "Max".to_string());
-    shelter.enqueue(AnimalType::Cat, "Luna".to_string());
-
-    // 登録された順番で最も古い動物を引き渡す
-    if let Some(animal) = shelter.dequeue_any() {
-        println!("dequeue_any: {:?}", animal);
-    }
-
-    // 犬の中で最も古い犬を引き渡す
-    if let Some(dog) = shelter.dequeue_dog() {
-        println!("dequeue_dog: {:?}", dog);
-    }
-
-    // 猫の中で最も古い猫を引き渡す
-    if let Some(cat) = shelter.dequeue_cat() {
-        println!("dequeue_cat: {:?}", cat);
-    }
+    println!("Route between 1 and 6: {}", graph.has_route(1, 6)); // true
+    println!("Route between 2 and 5: {}", graph.has_route(2, 5));
 }
