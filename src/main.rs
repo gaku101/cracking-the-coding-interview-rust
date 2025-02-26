@@ -1,17 +1,13 @@
-mod q_4_1;
+mod q_4_2;
 
-use q_4_1::Graph;
+use q_4_2::minimal_tree;
 
 fn main() {
-    let mut graph = Graph::new();
-    // グラフの辺を定義 (例: 1 -> 2, 1 -> 3, 2 -> 4, 3 -> 5, 4 -> 6, 5 -> 6)
-    graph.add_edge(1, 2);
-    graph.add_edge(1, 3);
-    graph.add_edge(2, 4);
-    graph.add_edge(3, 5);
-    graph.add_edge(4, 6);
-    graph.add_edge(5, 6);
-
-    println!("Route between 1 and 6: {}", graph.has_route(1, 6)); // true
-    println!("Route between 2 and 5: {}", graph.has_route(2, 5));
+    let sorted_array = vec![-12, -10, -3, -2, 0, 5, 9, 11, 13];
+    let tree = minimal_tree(&sorted_array);
+    println!("最小の高さのBST: {:#?}", tree);
 }
+/*
+時間計算量: O(n)（各要素が一度ずつ処理される）
+空間計算量: O(n)（再帰呼び出しとノード格納に n 個の要素を保持）
+*/
