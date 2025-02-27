@@ -18,3 +18,7 @@ pub fn minimal_tree(arr: &[i32]) -> Option<Box<TreeNode>> {
         right: minimal_tree(&arr[mid + 1..]),
     }))
 }
+/*
+時間計算量: O(n)（各要素が一度ずつ処理される）
+空間計算量: O(n)（再帰呼び出しとノード格納に n 個の要素を保持）
+*/

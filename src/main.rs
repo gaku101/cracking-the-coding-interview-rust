@@ -1,13 +1,37 @@
-mod q_4_2;
+mod q_4_3;
 
-use q_4_2::minimal_tree;
+use q_4_3::{list_of_depths, TreeNode};
 
 fn main() {
-    let sorted_array = vec![-12, -10, -3, -2, 0, 5, 9, 11, 13];
-    let tree = minimal_tree(&sorted_array);
-    println!("最小の高さのBST: {:#?}", tree);
+    // 以下のような二分木を作成
+    //         0
+    //        / \
+    //      -3   11
+    //     /  \  / \
+    //  -10  -2 9  13
+    //   /
+    // -12
+    let mut root = Box::new(TreeNode::new(0));
+    root.left = Some(Box::new(TreeNode::new(-3)));
+    root.right = Some(Box::new(TreeNode::new(11)));
+
+    if let Some(ref mut left) = root.left {
+        left.left = Some(Box::new(TreeNode::new(-10)));
+        left.right = Some(Box::new(TreeNode::new(-2)));
+        if let Some(ref mut left_left) = left.left {
+            left_left.left = Some(Box::new(TreeNode::new(-12)));
+        }
+    }
+
+    if let Some(ref mut right) = root.right {
+        right.left = Some(Box::new(TreeNode::new(9)));
+        right.right = Some(Box::new(TreeNode::new(13)));
+    }
+
+    let lists = list_of_depths(Some(&root));
+
+    // 各深さごとの連結リストを出力
+    for (depth, list) in lists.iter().enumerate() {
+        println!("Depth {}: {:?}", depth, list);
+    }
 }
-/*
-時間計算量: O(n)（各要素が一度ずつ処理される）
-空間計算量: O(n)（再帰呼び出しとノード格納に n 個の要素を保持）
-*/
