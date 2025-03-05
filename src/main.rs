@@ -1,37 +1,32 @@
-mod q_4_3;
+mod q_4_4;
 
-use q_4_3::{list_of_depths, TreeNode};
+use q_4_4::{is_balanced, TreeNode};
 
 fn main() {
-    // 以下のような二分木を作成
-    //         0
-    //        / \
-    //      -3   11
-    //     /  \  / \
-    //  -10  -2 9  13
-    //   /
-    // -12
-    let mut root = Box::new(TreeNode::new(0));
-    root.left = Some(Box::new(TreeNode::new(-3)));
-    root.right = Some(Box::new(TreeNode::new(11)));
+    // 例として簡単な木を構築（左右に1つずつ子ノードがある）
+    let tree = Some(Box::new(TreeNode {
+        value: 1,
+        left: Some(Box::new(TreeNode {
+            value: 2,
+            left: None,
+            right: None,
+        })),
+        right: Some(Box::new(TreeNode {
+            value: 3,
+            left: None,
+            right: None,
+        })),
+    }));
 
-    if let Some(ref mut left) = root.left {
-        left.left = Some(Box::new(TreeNode::new(-10)));
-        left.right = Some(Box::new(TreeNode::new(-2)));
-        if let Some(ref mut left_left) = left.left {
-            left_left.left = Some(Box::new(TreeNode::new(-12)));
-        }
-    }
-
-    if let Some(ref mut right) = root.right {
-        right.left = Some(Box::new(TreeNode::new(9)));
-        right.right = Some(Box::new(TreeNode::new(13)));
-    }
-
-    let lists = list_of_depths(Some(&root));
-
-    // 各深さごとの連結リストを出力
-    for (depth, list) in lists.iter().enumerate() {
-        println!("Depth {}: {:?}", depth, list);
-    }
+    println!("Tree is balanced: {}", is_balanced(&tree));
 }
+
+/*
+ • 時間計算量:
+　各ノードを一度だけ訪問するため、全体の時間計算量は O(n) となります。
+ • 空間計算量:
+　再帰呼び出しにより、スタックに積まれるフレーム数は木の高さに依存します。
+　・バランスした木の場合は木の高さは O(log n)
+　・最悪の場合（偏った木）では O(n)
+　となります。
+*/
