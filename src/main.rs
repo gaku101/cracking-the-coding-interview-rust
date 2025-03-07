@@ -1,32 +1,62 @@
-mod q_4_4;
+mod q_4_5;
 
-use q_4_4::{is_balanced, TreeNode};
+use q_4_5::{is_valid_bst, TreeNode      };
 
 fn main() {
-    // 例として簡単な木を構築（左右に1つずつ子ノードがある）
-    let tree = Some(Box::new(TreeNode {
-        value: 1,
+    // BST として有効なツリーを作成
+    let root = Box::new(TreeNode {
+        value: 10,
         left: Some(Box::new(TreeNode {
-            value: 2,
-            left: None,
-            right: None,
+            value: 5,
+            left: Some(Box::new(TreeNode {
+                value: 2,
+                left: None,
+                right: None,
+            })),
+            right: Some(Box::new(TreeNode {
+                value: 8,
+                left: None,
+                right: None,
+            })),
         })),
         right: Some(Box::new(TreeNode {
-            value: 3,
+            value: 15,
+            left: Some(Box::new(TreeNode {
+                value: 12,
+                left: None,
+                right: None,
+            })),
+            right: Some(Box::new(TreeNode {
+                value: 20,
+                left: None,
+                right: None,
+            })),
+        })),
+    });
+
+    println!("Is valid BST: {}", is_valid_bst(Some(&root)));
+
+    // ここで、BST の条件に反するノードを作って、検証してみる例
+    let invalid_root = Box::new(TreeNode {
+        value: 10,
+        left: Some(Box::new(TreeNode {
+            value: 5,
+            left: None,
+            right: Some(Box::new(TreeNode {
+                value: 12, // 5 の右側に 12 があるので、BST の条件に反する
+                left: None,
+                right: None,
+            })),
+        })),
+        right: Some(Box::new(TreeNode {
+            value: 15,
             left: None,
             right: None,
         })),
-    }));
+    });
 
-    println!("Tree is balanced: {}", is_balanced(&tree));
+    println!(
+        "Is valid BST (after modification): {}",
+        is_valid_bst(Some(&invalid_root))
+    );
 }
-
-/*
- • 時間計算量:
-　各ノードを一度だけ訪問するため、全体の時間計算量は O(n) となります。
- • 空間計算量:
-　再帰呼び出しにより、スタックに積まれるフレーム数は木の高さに依存します。
-　・バランスした木の場合は木の高さは O(log n)
-　・最悪の場合（偏った木）では O(n)
-　となります。
-*/
