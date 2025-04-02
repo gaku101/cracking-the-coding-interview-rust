@@ -1,45 +1,45 @@
-mod q_4_8;
+mod q_4_9;
 
-use q_4_8::{common_ancestor, TreeNode};
+use q_4_9::{bst_sequences, TreeNode};
 
 fn main() {
-    // 以下はツリー構造の例
-    //         3
-    //        / \
-    //       5   1
-    //      / \ / \
-    //     6  2 0  8
-    //       / \
-    //      7  4
-    let root = Some(Box::new(TreeNode {
-        val: 3,
-        left: Some(Box::new(TreeNode {
-            val: 5,
-            left: Some(Box::new(TreeNode::new(6))),
-            right: Some(Box::new(TreeNode {
-                val: 2,
-                left: Some(Box::new(TreeNode::new(7))),
-                right: Some(Box::new(TreeNode::new(4))),
-            })),
-        })),
-        right: Some(Box::new(TreeNode {
-            val: 1,
-            left: Some(Box::new(TreeNode::new(0))),
-            right: Some(Box::new(TreeNode::new(8))),
-        })),
-    }));
-
-    // 例1: ノード 7 と 4 の共通祖先を探索 (期待される共通祖先は 2)
-    if let Some(ancestor) = common_ancestor(&root, 6, 4) {
-        println!("共通の祖先: {}", ancestor.val);
-    } else {
-        println!("共通の祖先は見つかりませんでした");
+// サンプルの二分探索木（より深い階層構造）を構築
+    //
+    //             5
+    //           /   \
+    //          3     7
+    //         / \   / \
+    //        2   4 6   8
+    //       /
+    //      1
+    //
+    let mut root = Box::new(TreeNode::new(5));
+    
+    // 左部分木の構築
+    let mut node3 = Box::new(TreeNode::new(3));
+    node3.left = Some(Box::new(TreeNode::new(2)));
+    node3.right = Some(Box::new(TreeNode::new(4)));
+    // ノード2に左子として1を追加
+    if let Some(ref mut node2) = node3.left {
+        node2.left = Some(Box::new(TreeNode::new(1)));
     }
-
-    // 例2: ノード 5 と 1 の共通祖先を探索 (期待される共通祖先は 3)
-    if let Some(ancestor) = common_ancestor(&root, 5, 1) {
-        println!("共通の祖先: {}", ancestor.val);
-    } else {
-        println!("共通の祖先は見つかりませんでした");
+    
+    // 右部分木の構築
+    let mut node7 = Box::new(TreeNode::new(7));
+    node7.left = Some(Box::new(TreeNode::new(6)));
+    node7.right = Some(Box::new(TreeNode::new(8)));
+    
+    // ルートに左右の部分木を追加
+    root.left = Some(node3);
+    root.right = Some(node7);
+    
+    let tree = Some(root);
+    
+    // BSTシーケンスを求める
+    let sequences = bst_sequences(&tree);
+    
+    println!("BSTシーケンスの全パターン:");
+    for seq in sequences {
+        println!("{:?}", seq);
     }
 }
