@@ -1,31 +1,28 @@
-mod q_4_11;
+mod q_4_12;
 
-use q_4_11::TreeNode;
+use q_4_12::{count_paths_with_sum, TreeNode};
 
 fn main() {
-    // サンプルの二分探索木の構築
-    //
-    //          10
-    //         /  \
-    //        5    15
-    //       / \   /  \
-    //      3   7 13  20
-    //           \
-    //            8
-    //
-    let mut root = TreeNode::new(10);
-    root.insert(5);
-    root.insert(15);
-    root.insert(3);
-    root.insert(7);
-    root.insert(13);
-    root.insert(20);
-    root.insert(8);
+    // サンプルの二分木の作成
+    // 例として以下の木を作成：
+    //         10
+    //        /  \
+    //       5   -3
+    //      / \    \
+    //     3   2   11
+    let mut root = Box::new(TreeNode::new(10));
+    root.left = Some(Box::new(TreeNode::new(5)));
+    root.right = Some(Box::new(TreeNode::new(-3)));
 
-    // get_random() を複数回呼び出してランダムノードの値を表示
-    println!("ランダムに選ばれたノードの値:");
-    for _ in 0..10 {
-        let random_node = root.get_random();
-        println!("{}", random_node.val);
+    if let Some(ref mut left_node) = root.left {
+        left_node.left = Some(Box::new(TreeNode::new(3)));
+        left_node.right = Some(Box::new(TreeNode::new(2)));
     }
+    if let Some(ref mut right_node) = root.right {
+        right_node.right = Some(Box::new(TreeNode::new(11)));
+    }
+
+    let target = 8;
+    let result = count_paths_with_sum(&Some(root), target);
+    println!("合計 {} となるパスの数: {}", target, result);
 }
