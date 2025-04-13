@@ -1,28 +1,19 @@
-mod q_4_12;
+mod q_5_1;
 
-use q_4_12::{count_paths_with_sum, TreeNode};
+use q_5_1::insert_number;
 
 fn main() {
-    // サンプルの二分木の作成
-    // 例として以下の木を作成：
-    //         10
-    //        /  \
-    //       5   -3
-    //      / \    \
-    //     3   2   11
-    let mut root = Box::new(TreeNode::new(10));
-    root.left = Some(Box::new(TreeNode::new(5)));
-    root.right = Some(Box::new(TreeNode::new(-3)));
+    // サンプル例:
+    // N = 0b10000000000 (1024)
+    // M = 0b10011      (19)
+    // i = 2, j = 6 の位置に M を挿入する
+    let n: u32 = 0b10000000000;
+    let m: u32 = 0b10011;
+    let i: u32 = 2;
+    let j: u32 = 6;
 
-    if let Some(ref mut left_node) = root.left {
-        left_node.left = Some(Box::new(TreeNode::new(3)));
-        left_node.right = Some(Box::new(TreeNode::new(2)));
-    }
-    if let Some(ref mut right_node) = root.right {
-        right_node.right = Some(Box::new(TreeNode::new(11)));
-    }
-
-    let target = 8;
-    let result = count_paths_with_sum(&Some(root), target);
-    println!("合計 {} となるパスの数: {}", target, result);
+    let result = insert_number(n, m, i, j);
+    println!("N (挿入前): {:b}", n);
+    println!("M:            {:b}", m);
+    println!("挿入結果:     {:b}", result);
 }
