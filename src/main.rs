@@ -1,19 +1,14 @@
-mod q_5_1;
+mod q_5_2;
 
-use q_5_1::insert_number;
+use q_5_2::binary_to_string;
 
 fn main() {
     // サンプル例:
-    // N = 0b10000000000 (1024)
-    // M = 0b10011      (19)
-    // i = 2, j = 6 の位置に M を挿入する
-    let n: u32 = 0b10000000000;
-    let m: u32 = 0b10011;
-    let i: u32 = 2;
-    let j: u32 = 6;
+    // 0.625 は正確に 0.101 となる
+    let num1: f64 = 0.625;
+    // 0.1 は2進表現で無限小数となるため、32桁以内に収まらず "ERROR" が返る
+    let num2: f64 = 0.1;
 
-    let result = insert_number(n, m, i, j);
-    println!("N (挿入前): {:b}", n);
-    println!("M:            {:b}", m);
-    println!("挿入結果:     {:b}", result);
+    println!("{} -> {}", num1, binary_to_string(num1));
+    println!("{} -> {}", num2, binary_to_string(num2));
 }
