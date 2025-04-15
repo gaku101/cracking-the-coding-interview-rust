@@ -22,3 +22,13 @@ pub fn binary_to_string(num: f64) -> String {
     }
     binary
 }
+/*
+計算量
+Time Complexity: O(1)
+→ 小数部の桁数は最大32桁と定数回の操作になるため。
+
+Space Complexity: O(1)
+→ 使用する変数や文字列の長さも最大で定数の長さに収まるため。
+
+
+*/

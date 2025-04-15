@@ -1,14 +1,20 @@
-mod q_5_2;
+mod q_5_3;
 
-use q_5_2::binary_to_string;
+use q_5_3::{get_next_larger, get_next_smaller};
 
 fn main() {
-    // サンプル例:
-    // 0.625 は正確に 0.101 となる
-    let num1: f64 = 0.625;
-    // 0.1 は2進表現で無限小数となるため、32桁以内に収まらず "ERROR" が返る
-    let num2: f64 = 0.1;
+    // サンプル例
+    // 例として n = 13948 を用いる（2進数で表すと 0b11011001111100）
+    let n: u32 = 13948;
+    println!("元の数: {} -> {:b}", n, n);
 
-    println!("{} -> {}", num1, binary_to_string(num1));
-    println!("{} -> {}", num2, binary_to_string(num2));
+    match get_next_larger(n) {
+        Some(next_larger) => println!("次に大きい数: {} -> {:b}", next_larger, next_larger),
+        None => println!("次に大きい数は存在しません"),
+    }
+
+    match get_next_smaller(n) {
+        Some(next_smaller) => println!("次に小さい数: {} -> {:b}", next_smaller, next_smaller),
+        None => println!("次に小さい数は存在しません"),
+    }
 }
