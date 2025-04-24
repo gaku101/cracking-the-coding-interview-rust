@@ -1,8 +1,9 @@
-mod q_5_6;
-use q_5_6::conversion;
+mod q_5_7;
+use q_5_7::pairwise_swap;
 
 fn main() {
-    let a = 31; // 0b11111
-    let b = 14; // 0b01110
-    println!("{}", conversion(a, b)); // 出力: 2
+    let n = 23;               // 0b00010111
+    let swapped = pairwise_swap(n);
+    println!("{}", swapped);  // 出力: 43
+    println!("{:08b}", swapped); // 出力: 00101011
 }
