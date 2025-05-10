@@ -1,11 +1,25 @@
-mod q_6_1;
-use q_6_1::find_heavy_bottle;
+mod q_7_1;
+use q_7_1::{Deck, Hand};
 
 fn main() {
-    // 19本は1.0g、8番目(インデックス7)だけ1.1gとする
-    let mut weights = vec![1.0; 20];
-    weights[7] = 1.1;
+    // デッキを生成しシャッフル
+    let mut deck = Deck::new();
+    deck.shuffle();
 
-    let heavy = find_heavy_bottle(&weights);
-    println!("重い瓶のインデックス: {}", heavy); // 出力: 7
+    // プレイヤーの手札を作成
+    let mut player_hand = Hand::new();
+
+    // 2枚ドロー
+    if let Some(card1) = deck.draw() {
+        println!("Draw1: {:?} of {:?}", card1.rank, card1.suit);
+        player_hand.add(card1);
+    }
+    if let Some(card2) = deck.draw() {
+        println!("Draw2: {:?} of {:?}", card2.rank, card2.suit);
+        player_hand.add(card2);
+    }
+
+    // 手札の得点を計算
+    let score = player_hand.value();
+    println!("Player hand value: {}", score);
 }
