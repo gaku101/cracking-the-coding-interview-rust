@@ -1,22 +1,10 @@
-mod q_8_2;
-use q_8_2::find_path;
+mod q_8_3;
+use q_8_3::find_magic_index;
 
 fn main() {
-    // true: 通行可, false: 通行不可
-    let grid = vec![
-        vec![true, true, true, true],
-        vec![true, false, true, true],
-        vec![true, true, true, false],
-        vec![false, true, true, true],
-    ];
-
-    match find_path(&grid) {
-        Some(path) => {
-            println!("パスが見つかりました:");
-            for (r, c) in path {
-                println!("→ ({}, {})", r, c);
-            }
-        }
-        None => println!("通れるパスは存在しません。"),
+    let arr = vec![-1, 0, 2, 3, 4, 4, 5];
+    match find_magic_index(&arr) {
+        Some(i) => println!("マジック・インデックスを発見: i = {}", i),
+        None => println!("マジック・インデックスは存在しません。"),
     }
 }
