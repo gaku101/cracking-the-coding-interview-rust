@@ -1,10 +1,11 @@
-mod q_8_3;
-use q_8_3::find_magic_index;
+mod q_8_4;
+use q_8_4::get_subsets;
 
 fn main() {
-    let arr = vec![-1, 0, 2, 3, 4, 4, 5];
-    match find_magic_index(&arr) {
-        Some(i) => println!("マジック・インデックスを発見: i = {}", i),
-        None => println!("マジック・インデックスは存在しません。"),
+    let set = vec![1, 2, 3];
+    let subsets = get_subsets(&set);
+
+    for subset in subsets {
+        println!("{:?}", subset);
     }
 }
