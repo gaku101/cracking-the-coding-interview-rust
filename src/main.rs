@@ -1,11 +1,8 @@
-mod q_8_4;
-use q_8_4::get_subsets;
+mod q_8_5;
+use q_8_5::recursive_multiply;
 
 fn main() {
-    let set = vec![1, 2, 3];
-    let subsets = get_subsets(&set);
-
-    for subset in subsets {
-        println!("{:?}", subset);
-    }
+    let a = 13;
+    let b = 9;
+    println!("{} * {} = {}", a, b, recursive_multiply(a, b));
 }
