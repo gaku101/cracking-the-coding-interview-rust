@@ -1,10 +1,15 @@
-mod q_8_7;
-
-use q_8_7::permutations;
+mod q_8_8;
+use q_8_8::permute_unique;
 
 fn main() {
-    let input = "rust";
-    for p in permutations(input) {
-        println!("{}", p);
+    let nums = vec![1, 1, 2];
+    let perms = permute_unique(&nums);
+
+    for p in perms {
+        println!("{:?}", p);
     }
+    // 出力例（順序は探索順による）:
+    // [1, 1, 2]
+    // [1, 2, 1]
+    // [2, 1, 1]
 }
