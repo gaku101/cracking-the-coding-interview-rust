@@ -1,21 +1,8 @@
-mod q_8_10;
-use q_8_10::{Color, paint_fill};
+mod q_8_11;
+use q_8_11::count_ways;
 
 fn main() {
-    let mut screen = vec![
-        vec![Color::Red, Color::Red, Color::Green],
-        vec![Color::Red, Color::Red, Color::Green],
-        vec![Color::Green, Color::Green, Color::Green],
-    ];
-
-    paint_fill(&mut screen, 0, 0, Color::Blue);
-
-    for row in screen {
-        println!("{:?}", row);
-    }
-
-    // 出力（Red領域がBlueに塗られる）:
-    // [Blue, Blue, Green]
-    // [Blue, Blue, Green]
-    // [Green, Green, Green]
+    let amount = 10;
+    let ways = count_ways(amount);
+    println!("{} セントを構成する方法は {} 通りあります。", amount, ways);
 }
