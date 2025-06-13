@@ -1,14 +1,10 @@
-mod q_8_13;
-use q_8_13::{BoxDim, max_stack_height};
+mod q_8_14;
+use q_8_14::count_ways;
 
 fn main() {
-    let boxes = vec![
-        BoxDim { width: 4, depth: 4, height: 4 },
-        BoxDim { width: 3, depth: 3, height: 3 },
-        BoxDim { width: 2, depth: 2, height: 2 },
-        BoxDim { width: 1, depth: 1, height: 1 },
-    ];
-
-    let max_height = max_stack_height(&boxes);
-    println!("最大の積み上げ高さ: {}", max_height); // 出力: 10
+    let expr = "1^0|0|1";
+    let true_ways  = count_ways(expr, true);
+    let false_ways = count_ways(expr, false);
+    println!("式 `{}` を true にする方法: {}", expr, true_ways);
+    println!("式 `{}` を false にする方法: {}", expr, false_ways);
 }
